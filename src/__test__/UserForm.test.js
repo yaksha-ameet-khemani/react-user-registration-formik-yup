@@ -90,7 +90,7 @@ describe("boundary", () => {
 });
 
 describe("boundary", () => {
-  test("submit button disabled on invalid data", async () => {
+  test(testName + " submit button disabled on invalid data", async () => {
     const utils = render(<UserForm />);
     expect(getById(utils.container, "submit")).toBeInTheDocument();
   });
