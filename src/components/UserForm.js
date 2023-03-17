@@ -4,18 +4,28 @@ import "./UserForm.css";
 
 const UserForm = () => {
   const initialValues = {
-    name: "",
+    firstName: "",
+    lastName: "",
     email: "",
     contact: "",
+    department: "",
+    designation: "",
+    experience: "",
   };
 
   const validationSchema = () => {
     return Yup.object().shape({
-      name: Yup.string().required("Name is required"),
+      firstName: Yup.string().required("First name is required"),
       email: Yup.string()
         .required("Email is required")
         .email("Email is invalid"),
       contact: Yup.string().length(10, "Invalid contact number"),
+      department: Yup.string().required("Department is required"),
+      designation: Yup.string().required("Designation is required"),
+      // experience: Yup.string().required("Experience is required"),
+      experience: Yup.string()
+        .required("Experience is required")
+        .matches(/^[0-9]*$/, "Experience is not valid"),
     });
   };
 
@@ -35,13 +45,18 @@ const UserForm = () => {
         {({ errors, touched, resetForm }) => (
           <Form>
             <div className="form-div">
-              <label className="form-label">Name*</label>
-              <Field name="name" type="text" id="name" />
+              <label className="form-label">First Name*</label>
+              <Field name="firstName" type="text" id="firstName" />
               <ErrorMessage
-                name="name"
+                name="firstName"
                 component="div"
                 className="form-error"
               />
+            </div>
+
+            <div className="form-div">
+              <label className="form-label">Last Name*</label>
+              <Field name="lastName" type="text" id="lastName" />
             </div>
 
             <div className="form-div">
@@ -71,13 +86,44 @@ const UserForm = () => {
             </div>
 
             <div className="form-div">
+              <label className="form-label">Department*</label>
+              <Field name="department" type="text" id="department" />
+              <ErrorMessage
+                name="department"
+                component="div"
+                className="form-error"
+              />
+            </div>
+
+            <div className="form-div">
+              <label className="form-label">Designation*</label>
+              <Field name="designation" type="text" id="designation" />
+              <ErrorMessage
+                name="designation"
+                component="div"
+                className="form-error"
+              />
+            </div>
+
+            <div className="form-div">
+              <label className="form-label">Experience*</label>
+              <Field name="experience" type="number" id="experience" />
+              <ErrorMessage
+                name="experience"
+                component="div"
+                className="form-error"
+              />
+            </div>
+
+            <div className="form-div">
               <button
                 type="submit"
                 id="submit"
                 disabled={
                   Array.isArray(errors) ||
                   Object.values(errors).toString() != ""
-                }>
+                }
+              >
                 Add User
               </button>
             </div>
